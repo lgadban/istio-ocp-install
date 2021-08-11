@@ -18,6 +18,10 @@ spec:
     targetRevision: HEAD
   project: default
 ```
+Note that the manifests folder contains the Istio manifests along with OpenShift specific resources:
+* [SCC to grant `anyuid` permissions](istio-manifests/istio-sys-scc-anyuid.yaml) to istio pods and injected workloads
+* [A `NetworkAttachmentDefinition` resource](istio-manifests/network-attach-istio-cni.yaml) which supports the `istio-cni` plugin 
+* [An OpenShift `Route` resource](istio-manifests/ingres-gateway-route.yaml) exposing the `istio-ingressgateway` for ingress traffic to the mesh
 
 3. Label `bookinfo` namespace with injection label
 ```
@@ -42,7 +46,7 @@ spec:
   project: default
 ```
 
-5. Access bookinfo Product Page via correct route, e.g. http://istio-ingressgateway-istio-system.$ROUTE-HOSTNAME/productpage
+5. Access bookinfo Product Page via correct route, e.g. http://istio-ingressgateway-istio-system.$ROUTER-DOMAIN/productpage
 
 ## Generating the Istio manifests (if necessary)
 
